@@ -58,29 +58,70 @@ const emojiMap = {
   neutral: "😐",
 };
 
-const SongSuggestions = ({ emotion }) => {
-  const songs = songMap[emotion] || [];
+const SongSuggestions = ({ mood }) => {
+  const songs = songMap[mood] || [];
+
+  const moodColors = {
+    happy: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    sad: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+    angry: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+    surprised: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)",
+    disgusted: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+    fearful: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)",
+    neutral: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+  };
 
   return (
     <div className="songs-container">
-      <h2 className="songs-heading">
-        🎧 Moodify Playlist for: <span className="emotion-name">{emotion}</span>{" "}
-        {emojiMap[emotion]}
-      </h2>
+      <div className="songs-header">
+        <div
+          className="mood-icon-large"
+          style={{ background: moodColors[mood] }}
+        >
+          {emojiMap[mood]}
+        </div>
+        <h2 className="songs-heading">
+          Your Personalized{" "}
+          <span
+            className="emotion-highlight"
+            style={{ background: moodColors[mood] }}
+          >
+            {mood.charAt(0).toUpperCase() + mood.slice(1)}
+          </span>{" "}
+          Playlist
+        </h2>
+        <p className="songs-subheading">
+          {songs.length} handpicked tracks to match your vibe
+        </p>
+      </div>
 
       <div className="songs-grid">
         {songs.map((song, i) => (
-          <div key={i} className="song-card">
-            <h4>{song.title}</h4>
-            <iframe
-              width="320"
-              height="180"
-              src={`https://www.youtube.com/embed/${song.videoId}`}
-              title={`YouTube - ${song.title}`}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
+          <div
+            key={i}
+            className="song-card"
+            style={{ animationDelay: `${i * 0.1}s` }}
+          >
+            <div className="song-number">{i + 1}</div>
+            <div className="song-thumbnail">
+              <iframe
+                width="100%"
+                height="200"
+                src={`https://www.youtube.com/embed/${song.videoId}`}
+                title={`YouTube - ${song.title}`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div className="song-info">
+              <h4 className="song-title">{song.title}</h4>
+              <div className="play-indicator">
+                <span className="play-icon">▶</span>
+                <span>Click to play</span>
+              </div>
+            </div>
           </div>
         ))}
       </div>
