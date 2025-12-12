@@ -81,13 +81,7 @@ const SongSuggestions = ({ mood }) => {
           {emojiMap[mood]}
         </div>
         <h2 className="songs-heading">
-          Your Personalized{" "}
-          <span
-            className="emotion-highlight"
-            style={{ background: moodColors[mood] }}
-          >
-            {mood.charAt(0).toUpperCase() + mood.slice(1)}
-          </span>{" "}
+          Your Personalized {mood.charAt(0).toUpperCase() + mood.slice(1)}{" "}
           Playlist
         </h2>
         <p className="songs-subheading">
